@@ -20,10 +20,10 @@
                 <p><em>Started at {{ exp.startedAt | date('m/d/Y') }}</em></p>
                 <p>{{ exp.description }}</p>
             {% endfor %}
-            <p><a href="#">Add an another experience</a></p>
+            <p><a href="{{ path('app_add_exp') }}">Add an another experience</a></p>
         {% else %}
             No experiences added. <br>
-            <p><a href="#">Add an experience</a></p>
+            <p><a href="{{ path('app_add_exp') }}">Add an experience</a></p>
         {% endif %}
 
     <h1>My skills</h1>

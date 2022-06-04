@@ -8,7 +8,9 @@ use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,7 +34,7 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    #[Route('/profile/add/exp', name: 'app_exp_add')]
+    #[Route('/profile/add/exp', name: 'app_add_exp')]
     public function addExp(UserRepository $userRepository, Request $request, EntityManagerInterface $em): Response
     {
         if($this->getUser())
@@ -42,18 +44,28 @@ class DashboardController extends AbstractController
             $exp = new Experience();
             $form = $this->createFormBuilder($exp)
                 ->add('jobName', TextType::class)
-                ->add('startedAt', DateTimeType::class, [
+                ->add('startedAt', DateType::class, [
                     'input' => 'datetime_immutable',
                 ])
-                ->add('endAt', DateTimeType::class, [
-                    'input' => 'datetime_immutable',
+                ->add('endAt', DateType::class, [
+                    'input' => 'datetime_immutable'
+                ])
+                ->add('notEnd', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'Still in progress',
+                    'required' => false,
                 ])
                 ->add('description', TextareaType::class)
                 ->getForm();
 
+
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid())
             {
+                if(!$form->get('notEnd')->getData())
+                {
+                    $exp->setEndAt(NULL);
+                }
                 $exp->setUser($user);
                 $em->persist($exp);
                 $em->flush();
