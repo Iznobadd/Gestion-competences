@@ -1,7 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Your profile{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1>My profile</h1>
+    <h1>{% if user.isAdmin %}Administrator{% elseif user.isCollab %}Collaborator{% else %}SalesMan{% endif %}</h1>
+    <p>{{ user.firstName }} {{ user.lastName }}</p>
+    <p>mail : {{ user.email }}</p>
+    {% if user.status %}
+        Is available : Yes
+    {% else %}
+        Is available : No
+    {% endif %}
+
+    <h1>My experiences</h1>
+        {% if exps is not empty %}
+            {% for exp in exps %}
+                <h3>{{ exp.jobName }}</h3>
+                <p><em>Started at {{ exp.startedAt | date('m/d/Y') }}</em></p>
+                <p>{{ exp.description }}</p>
+            {% endfor %}
+        {% else %}
+            No experiences added
+        {% endif %}
 {% endblock %}
