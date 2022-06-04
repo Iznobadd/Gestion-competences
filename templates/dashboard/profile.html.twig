@@ -20,7 +20,22 @@
                 <p><em>Started at {{ exp.startedAt | date('m/d/Y') }}</em></p>
                 <p>{{ exp.description }}</p>
             {% endfor %}
+            <p><a href="#">Add an another experience</a></p>
         {% else %}
-            No experiences added
+            No experiences added. <br>
+            <p><a href="#">Add an experience</a></p>
+        {% endif %}
+
+    <h1>My skills</h1>
+        {% if user.skills is not empty %}
+            <ul>
+                {% for skill in user.skills %}
+                    <li>{{ skill.name }}</li>
+                {% endfor %}
+            </ul>
+            <p><a href="#">Add an another skill</a></p>
+        {% else %}
+            No skills added
+            <p><a href="#">Add a skill</a></p>
         {% endif %}
 {% endblock %}
