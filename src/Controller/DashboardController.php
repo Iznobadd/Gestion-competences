@@ -21,12 +21,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function profile(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
+    public function profile(ExperiencesRepository $experiencesRepository): Response
     {
-        if($this->getUser())
+        $user = $this->getUser();
+        if($user)
         {
-            $identifier = $this->getUser()->getUserIdentifier();
-            $user = $userRepository->findOneBy(['email' => $identifier]);
             $exps = $experiencesRepository->findBy(['user' => $user]);
 
             return $this->render('dashboard/profile.html.twig', compact('user', 'exps'));
@@ -35,12 +34,11 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/profile/add/exp', name: 'app_add_exp')]
-    public function addExp(UserRepository $userRepository, Request $request, EntityManagerInterface $em): Response
+    public function addExp(Request $request, EntityManagerInterface $em): Response
     {
-        if($this->getUser())
+        $user = $this->getUser();
+        if($user)
         {
-            $identifier = $this->getUser()->getUserIdentifier();
-            $user = $userRepository->findOneBy(['email' => $identifier]);
             $exp = new Experience();
             $form = $this->createFormBuilder($exp)
                 ->add('jobName', TextType::class)
@@ -75,6 +73,18 @@ class DashboardController extends AbstractController
             return $this->render('dashboard/add_profile_exp.html.twig', [
                 'form' => $form->createView()
             ]);
+        }
+        return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/profile/add/skill', name: 'app_add_skill')]
+    public function addSkill(SkillRepository $skillRepository): Response
+    {
+        $user = $this->getUser();
+        if($user)
+        {
+            $skill = $skillRepository->findAll();
+            return $this->render('dashboard/add_profile_skill.html.twig', compact('skill'));
         }
         return $this->redirectToRoute('app_login');
     }
