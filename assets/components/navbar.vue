@@ -29,6 +29,11 @@
         </tr>
       </tbody>
     </table>
+
+    <button class="btn btn-primary">primary color</button>
+    <br /><br />
+    <button class="btn btn-secondary">secondary color</button>
+
   </div>
 </template>
 
