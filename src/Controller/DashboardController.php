@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
+    #[Route('/profil', name: 'app_profil')]
     public function index(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
     {
         if($this->getUser())
@@ -20,13 +20,13 @@ class DashboardController extends AbstractController
             $user = $userRepository->findOneBy(['email' => $identifier]);
             $exps = $experiencesRepository->findBy(['user' => $user]);
 
-            return $this->render('dashboard/profile.html.twig', compact('user', 'exps'));
+            return $this->render('dashboard/profil.html.twig', compact('user', 'exps'));
         }
         return $this->redirectToRoute('app_login');
     }
 
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function indexVue(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
+    public function indexVue(): Response
     {
         // Code à décommenter plus tard pour activer le login avant d'accéder au dashboard avec vuejs
         // if($this->getUser())
