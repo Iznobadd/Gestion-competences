@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Skill;
+use App\Entity\Mission;
+use App\Entity\Experience;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -20,6 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(['info_user'])]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -29,21 +34,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['info_user'])]
     private $lastName;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['info_user'])]
     private $firstName;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['info_user'])]
     private $status;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['info_user'])]
     private $is_admin;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['info_user'])]
     private $is_collab;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['info_user'])]
     private $is_commercial;
 
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Experience::class)]
