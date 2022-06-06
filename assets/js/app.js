@@ -16,6 +16,7 @@ import 'bootstrap';
 // or get all of the named exports for further usage
 import * as bootstrap from 'bootstrap';
 
+// import * as Vue from 'vue'
 import { createApp } from 'vue';
 import App from './App.vue';
 
