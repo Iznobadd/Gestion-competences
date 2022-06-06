@@ -1,12 +1,18 @@
 <template>
-  <h1>{{ test }}</h1>
+  <navbar />
+  <h1>Hello ! {{ test }}</h1>
 </template>
 
 <script>
+import navbar from '../components/navbar.vue'
+
 export default {
+  components: { 
+    navbar 
+  },
   data () {
     return {
-      test : hello,
+      test : "Izno",
     }
   },
 }
