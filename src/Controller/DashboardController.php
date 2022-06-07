@@ -2,22 +2,34 @@
 
 namespace App\Controller;
 
+use App\Entity\Experience;
+use App\Entity\Skill;
 use App\Repository\ExperiencesRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
+    public function profile(ExperiencesRepository $experiencesRepository): Response
     {
-        if($this->getUser())
+        $user = $this->getUser();
+        if($user)
         {
-            $identifier = $this->getUser()->getUserIdentifier();
-            $user = $userRepository->findOneBy(['email' => $identifier]);
             $exps = $experiencesRepository->findBy(['user' => $user]);
 
             return $this->render('dashboard/profile.html.twig', compact('user', 'exps'));
@@ -25,6 +37,80 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
+    #[Route('/profile/add/exp', name: 'app_add_exp')]
+    public function addExp(Request $request, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        if($user)
+        {
+            $exp = new Experience();
+            $form = $this->createFormBuilder($exp)
+                ->add('jobName', TextType::class)
+                ->add('startedAt', DateType::class, [
+                    'input' => 'datetime_immutable',
+                ])
+                ->add('endAt', DateType::class, [
+                    'input' => 'datetime_immutable'
+                ])
+                ->add('notEnd', CheckboxType::class, [
+                    'mapped' => false,
+                    'label' => 'Still in progress',
+                    'required' => false,
+                ])
+                ->add('description', TextareaType::class)
+                ->getForm();
+
+
+            $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid())
+            {
+                if(!$form->get('notEnd')->getData())
+                {
+                    $exp->setEndAt(NULL);
+                }
+                $exp->setUser($user);
+                $em->persist($exp);
+                $em->flush();
+                return $this->redirectToRoute('app_profile');
+            }
+
+            return $this->render('dashboard/add_profile_exp.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
+        return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/profile/add/skill', name: 'app_add_skill')]
+    public function addSkill(Request $request, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        if($user)
+        {
+            $form = $this->createFormBuilder($user)
+                ->add('skills', EntityType::class, [
+                   'class' => Skill::class,
+                   'choice_label' => 'name',
+                   'multiple' => true,
+                    'expanded' =>true,
+                    'by_reference' => false
+                ])
+                ->getForm();
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $em->flush();
+                return $this->redirectToRoute('app_profile');
+            }
+
+            return $this->render('dashboard/add_profile_skill.html.twig', [
+                'form' => $form->createView()
+            ]);
+        }
+        return $this->redirectToRoute('app_login');
+      
     #[Route('/dashboard', name: 'app_dashboard')]
     public function indexVue(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
     {
@@ -36,5 +122,6 @@ class DashboardController extends AbstractController
         // return $this->redirectToRoute('app_login');
 
         return $this->render('basevue.html.twig');
+      
     }
 }
