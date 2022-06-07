@@ -43,14 +43,15 @@ export default {
         if (this.pageProfil==false){
           this.pageList=false
           this.pageProfil=true
-          console.log('ouverture du profil')
+          this.$emit('pOpen')
+          // console.log('ouverture du profil')
         }
       },
       listOpen(){
         if (this.pageList==false){
           this.pageProfil=false
           this.pageList=true
-          console.log('ouverture de la liste')
+          // console.log('ouverture de la liste')
         }
       },
     }

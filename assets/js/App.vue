@@ -5,6 +5,7 @@
   :isAdmin="isAdmin"
   :isCommercial="isCommercial"
   :isCollab="isCollab"
+  v-on:pOpen="profileOpen"
   />
   <!-- <h1>Hello {{firstName }} !</h1> -->
 </template>
@@ -44,6 +45,21 @@ export default {
         this.isCommercial = this.infoUser.is_commercial;
         // console.log(this.infoUser);
       })      
+    },
+    profileOpen(){
+      if (this.pageProfil==false){
+        this.pageList=false
+        this.pageProfil=true
+        // this.$emit('profileOpen')
+        console.log('ouverture du profil')
+      }
+    },
+    listOpen(){
+      if (this.pageList==false){
+        this.pageProfil=false
+        this.pageList=true
+        console.log('ouverture de la liste')
+      }
     },
   },
   watch: {
