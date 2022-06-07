@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppAuthenticator;
+use ContainerMxb9QDX\getConsole_ErrorListenerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,10 +32,24 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($user->getRoles() == ['ROLE_ADMIN'])
+            {
+                $user->setIsAdmin(true);
+                $user->setIsCollab(false);
+                $user->setIsCommercial(false);
+            }
+            else if($user->getRoles() == ['ROLE_SALE'])
+            {
+                $user->setIsAdmin(false);
+                $user->setIsCollab(false);
+                $user->setIsCommercial(true);
+            }
+            else {
+                $user->setIsAdmin(false);
+                $user->setIsCollab(true);
+                $user->setIsCommercial(false);
+            }
 
-            $user->setIsAdmin(false);
-            $user->setIsCollab(true);
-            $user->setIsCommercial(false);
 
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
