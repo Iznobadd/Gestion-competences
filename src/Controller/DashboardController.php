@@ -123,7 +123,7 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard', name: 'app_dashboard')]
+    #[Route('/', name: 'app_home')]
     public function indexVue(): Response
     {
         // Code à décommenter plus tard pour activer le login avant d'accéder au dashboard avec vuejs

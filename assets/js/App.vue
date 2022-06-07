@@ -3,6 +3,8 @@
   :firstName="firstName"
   :email="email"
   :isAdmin="isAdmin"
+  :isCommercial="isCommercial"
+  :isCollab="isCollab"
   />
   <!-- <h1>Hello {{firstName }} !</h1> -->
 </template>
