@@ -12,6 +12,7 @@
             <th scope="col">First</th>
             <th scope="col">Last</th>
             <th scope="col">Status</th>
+            <th scope="col">Profile</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
             <td>{{ user.firstName }}</td>
             <td>{{ user.lastName }}</td>
             <td>{% if user.status %}Available{% else %}Not available{% endif %}</td>
+            <td><a href="{{ path('app_collab_profile', {id: user.id}) }}">Check profile</a></td>
         </tr>
             {% set i = i+1 %}
         {% endfor %}
