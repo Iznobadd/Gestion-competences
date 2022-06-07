@@ -1,6 +1,6 @@
 <template>
   <navbar />
-  <h1>Hello !</h1>
+  <h1>Hello {{firstName }} !</h1>
 </template>
 
 <script>
