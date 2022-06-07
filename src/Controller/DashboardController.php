@@ -82,20 +82,28 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/profile/add/skill', name: 'app_add_skill')]
-    public function addSkill(SkillRepository $skillRepository): Response
+    public function addSkill(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
         if($user)
         {
-            $skill = $skillRepository->findAll();
             $form = $this->createFormBuilder($user)
                 ->add('skills', EntityType::class, [
                    'class' => Skill::class,
                    'choice_label' => 'name',
                    'multiple' => true,
                     'expanded' =>true,
+                    'by_reference' => false
                 ])
                 ->getForm();
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid())
+            {
+                $em->flush();
+                return $this->redirectToRoute('app_profile');
+            }
 
             return $this->render('dashboard/add_profile_skill.html.twig', [
                 'form' => $form->createView()
