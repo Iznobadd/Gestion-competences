@@ -8,6 +8,7 @@ use App\Repository\ExperiencesRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,27 +23,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[IsGranted('ROLE_USER')]
 class DashboardController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
     public function profile(ExperiencesRepository $experiencesRepository): Response
     {
         $user = $this->getUser();
-        if($user)
-        {
             $exps = $experiencesRepository->findBy(['user' => $user]);
 
             return $this->render('dashboard/profile.html.twig', compact('user', 'exps'));
-        }
-        return $this->redirectToRoute('app_login');
     }
 
     #[Route('/profile/add/exp', name: 'app_add_exp')]
     public function addExp(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-        if($user)
-        {
             $exp = new Experience();
             $form = $this->createFormBuilder($exp)
                 ->add('jobName', TextType::class)
@@ -77,15 +73,13 @@ class DashboardController extends AbstractController
             return $this->render('dashboard/add_profile_exp.html.twig', [
                 'form' => $form->createView()
             ]);
-        }
-        return $this->redirectToRoute('app_login');
+
     }
 
     #[Route('/profile/add/skill', name: 'app_add_skill')]
     public function addSkill(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-        if ($user) {
             $form = $this->createFormBuilder($user)
                 ->add('skills', EntityType::class, [
                     'class' => Skill::class,
@@ -106,11 +100,14 @@ class DashboardController extends AbstractController
             return $this->render('dashboard/add_profile_skill.html.twig', [
                 'form' => $form->createView()
             ]);
-        }
-        return $this->redirectToRoute('app_login');
-
     }
 
+    #[Route('/collab_list', name: 'app_collab_list')]
+    public function collabList(): Response
+    {
+
+        return $this->render('dashboard/collab_list.html.twig');
+    }
     #[Route('/dashboard', name: 'app_dashboard')]
     public function indexVue(): Response
     {
