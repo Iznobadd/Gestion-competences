@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Experience;
+use App\Entity\Skill;
 use App\Repository\ExperiencesRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -84,7 +88,18 @@ class DashboardController extends AbstractController
         if($user)
         {
             $skill = $skillRepository->findAll();
-            return $this->render('dashboard/add_profile_skill.html.twig', compact('skill'));
+            $form = $this->createFormBuilder($user)
+                ->add('skills', EntityType::class, [
+                   'class' => Skill::class,
+                   'choice_label' => 'name',
+                   'multiple' => true,
+                    'expanded' =>true,
+                ])
+                ->getForm();
+
+            return $this->render('dashboard/add_profile_skill.html.twig', [
+                'form' => $form->createView()
+            ]);
         }
         return $this->redirectToRoute('app_login');
     }

@@ -33,9 +33,9 @@
                     <li>{{ skill.name }}</li>
                 {% endfor %}
             </ul>
-            <p><a href="#">Add an another skill</a></p>
+            <p><a href="{{ path('app_add_skill') }}">Add an another skill</a></p>
         {% else %}
             No skills added
-            <p><a href="#">Add a skill</a></p>
+            <p><a href="{{ path('app_add_skill') }}">Add a skill</a></p>
         {% endif %}
 {% endblock %}
