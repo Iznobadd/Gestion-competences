@@ -1,10 +1,11 @@
 <template>
   <navbar />
-  <h1>Hello ! {{ test }}</h1>
+  <h1>Hello {{firstName }} !</h1>
 </template>
 
 <script>
-import navbar from '../components/navbar.vue'
+import navbar from '../components/navbar.vue';
+import axios from 'axios';
 
 export default {
   components: { 
@@ -12,8 +13,40 @@ export default {
   },
   data () {
     return {
-      test : "Izno",
+      login: false,
+      infoUser : [],
+      firstName: null,
+      lastName: null,
+      email: null,
+      status: null,
+      isAdmin: null,
+      isCollab: null,
+      isCommercial: null,
     }
+  },
+  methods:{
+    loadInfoUser(){
+      axios.get("/api/info_user").then(response => {
+        let data = response.data;
+        this.infoUser = data;
+        this.firstName = this.infoUser.firstName;
+        this.lastName = this.infoUser.lastName;
+        this.email = this.infoUser.email;
+        this.status = this.infoUser.status;
+        this.isAdmin = this.infoUser.is_admin;
+        this.isCollab = this.infoUser.is_collab;
+        this.isCommercial = this.infoUser.is_commercial;
+        // console.log(this.infoUser);
+      })
+    }
+  },
+  watch: {
+    login (login){
+      this.loadInfoUser();
+    }
+  },
+  beforeMount(){
+    this.login = true;
   },
 }
 </script>

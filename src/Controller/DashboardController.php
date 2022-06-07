@@ -112,7 +112,7 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('app_login');
       
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function indexVue(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
+    public function indexVue(): Response
     {
         // Code à décommenter plus tard pour activer le login avant d'accéder au dashboard avec vuejs
         // if($this->getUser())

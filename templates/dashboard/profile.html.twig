@@ -3,7 +3,7 @@
 {% block title %}Your profile{% endblock %}
 
 {% block body %}
-    <h1>My profile</h1>
+    <h1>My profil</h1>
     <h1>{% if user.isAdmin %}Administrator{% elseif user.isCollab %}Collaborator{% else %}SalesMan{% endif %}</h1>
     <p>{{ user.firstName }} {{ user.lastName }}</p>
     <p>mail : {{ user.email }}</p>
