@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Skill{% endblock %}
+
+{% block body %}
+    <h1>{{ user.firstName }} {{ user.lastName }} Profile</h1>
+    <h1>{% if user.isAdmin %}Administrator{% elseif user.isCollab %}Collaborator{% else %}SalesMan{% endif %}</h1>
+    <p>mail : {{ user.email }}</p>
+    {% if user.status %}
+        Is available : Yes
+    {% else %}
+        Is available : No
+    {% endif %}
+
+    <h1>My experiences</h1>
+    {% if exps is not empty %}
+        {% for exp in exps %}
+            <h3>{{ exp.jobName }}</h3>
+            <p><em>Started at {{ exp.startedAt | date('m/d/Y') }}</em></p>
+            <p>{{ exp.description }}</p>
+        {% endfor %}
+        <p><a href="{{ path('app_add_exp') }}">Add an another experience</a></p>
+    {% else %}
+        No experiences added. <br>
+        <p><a href="{{ path('app_add_exp') }}">Add an experience</a></p>
+    {% endif %}
+
+    <h1>My skills</h1>
+    {% if user.skills is not empty %}
+        <ul>
+            {% for skill in user.skills %}
+                <li>{{ skill.name }}</li>
+            {% endfor %}
+        </ul>
+        <p><a href="{{ path('app_add_skill') }}">Add an another skill</a></p>
+    {% else %}
+        No skills added
+        <p><a href="{{ path('app_add_skill') }}">Add a skill</a></p>
+    {% endif %}
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Experience;
 use App\Entity\Skill;
+use App\Entity\User;
 use App\Repository\ExperiencesRepository;
 use App\Repository\SkillRepository;
 use App\Repository\UserRepository;
@@ -23,7 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[IsGranted('ROLE_USER')]
+#[IsGranted('ROLE_COLLAB')]
 class DashboardController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
@@ -103,11 +104,25 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/collab_list', name: 'app_collab_list')]
-    public function collabList(): Response
+    #[IsGranted('ROLE_SALE')]
+    public function collabList(UserRepository $userRepository): Response
     {
-
-        return $this->render('dashboard/collab_list.html.twig');
+        $users = $userRepository->findBy(['is_collab' => true]);
+        return $this->render('dashboard/collab_list.html.twig', compact('users'));
     }
+
+    #[Route('/profile/{id}', name: 'app_collab_profile')]
+    #[IsGranted('ROLE_SALE')]
+    public function collabProfile(User $user, UserRepository $userRepository, ExperiencesRepository $experiencesRepository): Response
+    {
+        $profile = $userRepository->findOneBy(['id' => $user]);
+        $exps = $experiencesRepository->findBy(['user' => $user]);
+        return $this->render('dashboard/collab_profile.html.twig', [
+            'user' => $profile,
+            'exps' =>$exps
+        ]);
+    }
+
     #[Route('/dashboard', name: 'app_dashboard')]
     public function indexVue(): Response
     {
