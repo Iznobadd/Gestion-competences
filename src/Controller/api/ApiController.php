@@ -30,6 +30,8 @@ class ApiController extends AbstractController
                 $exps, 200, [], ['groups' => 'exps_user'],
             );
         }
-        // return $this->redirectToRoute('app_login');
+        return $this->json(
+            'non connecté'
+        );
     }
 }

@@ -1,6 +1,10 @@
 <template>
-  <navbar />
-  <h1>Hello {{firstName }} !</h1>
+  <navbar 
+  :firstName="firstName"
+  :email="email"
+  :isAdmin="isAdmin"
+  />
+  <!-- <h1>Hello {{firstName }} !</h1> -->
 </template>
 
 <script>
@@ -37,12 +41,24 @@ export default {
         this.isCollab = this.infoUser.is_collab;
         this.isCommercial = this.infoUser.is_commercial;
         // console.log(this.infoUser);
-      })
-    }
+      })      
+    },
   },
   watch: {
     login (login){
-      this.loadInfoUser();
+      const request = new Promise((successCallback, failureCallback)  => {
+          this.loadInfoUser();
+          if (this.email != null){
+            successCallback()
+          }else {
+            failureCallback()
+          }
+      })
+      request.then(() => {
+        // console.log(this.email);
+      }).catch(() => {
+        // console.log(this.email);
+      })
     }
   },
   beforeMount(){
