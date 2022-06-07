@@ -5,17 +5,17 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="/dashboard">Welcome {{ firstName }} !</a>
+        <a class="navbar-brand" href="/">Welcome {{ firstName }} !</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
+            <li class="nav-item" @click="profileOpen">
               <a class="nav-link" href="#">Profile</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+            <li v-if="isCommercial" class="nav-item" @click="listOpen">
+              <a class="nav-link" href="#">List of collaborator</a>
             </li>
             <li v-if="isAdmin" class="nav-item">
-              <a class="nav-link" href="#">Admin Panel</a>
+              <a class="nav-link" href="/dashboard">Admin panel</a>
             </li>
           </ul>
           <form class="d-flex" role="search">
@@ -30,13 +30,30 @@
 
 <script type="application/javascript">
 export default {
-    props: ['firstName','email','isAdmin'],
+    props: ['firstName','email','isAdmin','isCollab','isCommercial'],
     name: "navbar",
     data () {
         return {
-        test: null
+          pageProfil: false,
+          pageList: false,
         }
     },
+    methods: {
+      profileOpen(){
+        if (this.pageProfil==false){
+          this.pageList=false
+          this.pageProfil=true
+          console.log('ouverture du profil')
+        }
+      },
+      listOpen(){
+        if (this.pageList==false){
+          this.pageProfil=false
+          this.pageList=true
+          console.log('ouverture de la liste')
+        }
+      },
+    }
 };
 </script>
 
