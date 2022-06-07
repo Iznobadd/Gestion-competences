@@ -16,7 +16,7 @@ class ApiController extends AbstractController
     {
         return $this->render('api/api/index.html.twig');
     }
-    #[Route('/api/info_user', name: 'app_profile')]
+    #[Route('/api/info_user', name: 'api_user')]
     public function info_user(UserRepository $userRepository, ExperiencesRepository $experiencesRepository, SkillRepository $skillRepository): Response
     {
         if($this->getUser())

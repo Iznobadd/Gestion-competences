@@ -30,6 +30,7 @@
 
 <script type="application/javascript">
 export default {
+    props: ['infoUser'],
     name: "navbar",
     data () {
         return {
