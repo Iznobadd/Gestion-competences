@@ -1,6 +1,10 @@
 <template>
-  <navbar />
-  <h1>Hello {{firstName }} !</h1>
+  <navbar 
+  :firstName="firstName"
+  :email="email"
+  :isAdmin="isAdmin"
+  />
+  <!-- <h1>Hello {{firstName }} !</h1> -->
 </template>
 
 <script>
