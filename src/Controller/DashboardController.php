@@ -85,22 +85,20 @@ class DashboardController extends AbstractController
     public function addSkill(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
-        if($user)
-        {
+        if ($user) {
             $form = $this->createFormBuilder($user)
                 ->add('skills', EntityType::class, [
-                   'class' => Skill::class,
-                   'choice_label' => 'name',
-                   'multiple' => true,
-                    'expanded' =>true,
+                    'class' => Skill::class,
+                    'choice_label' => 'name',
+                    'multiple' => true,
+                    'expanded' => true,
                     'by_reference' => false
                 ])
                 ->getForm();
 
             $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid())
-            {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $em->flush();
                 return $this->redirectToRoute('app_profile');
             }
@@ -110,7 +108,9 @@ class DashboardController extends AbstractController
             ]);
         }
         return $this->redirectToRoute('app_login');
-      
+
+    }
+
     #[Route('/dashboard', name: 'app_dashboard')]
     public function indexVue(): Response
     {
