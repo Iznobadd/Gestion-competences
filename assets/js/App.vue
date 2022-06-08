@@ -18,7 +18,6 @@
   v-if="showProfile"
   />
   <collablist
-  :login="login"
   v-if='showList'
   />
 </template>
