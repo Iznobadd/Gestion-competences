@@ -21,10 +21,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['collab_list'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
-    #[Groups(['info_user'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $email;
 
     #[ORM\Column(type: 'json')]
@@ -34,15 +35,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['info_user'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $lastName;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['info_user'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $firstName;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['info_user'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $status;
 
     #[ORM\Column(type: 'boolean')]

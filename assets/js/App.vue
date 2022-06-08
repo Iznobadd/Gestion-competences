@@ -5,17 +5,34 @@
   :isAdmin="isAdmin"
   :isCommercial="isCommercial"
   :isCollab="isCollab"
+  @clickProfile="toggleProfile()"
+  @clickList="toggleList()"
   />
-  <!-- <h1>Hello {{firstName }} !</h1> -->
+  <profile
+  :firstName="firstName"
+  :lastName="lastName"
+  :email="email"
+  :isAdmin="isAdmin"
+  :isCommercial="isCommercial"
+  :isCollab="isCollab"
+  v-if="showProfile"
+  />
+  <collablist
+  v-if='showList'
+  />
 </template>
 
 <script>
 import navbar from '../components/navbar.vue';
+import collablist from '../components/collablist.vue'
+import profile from '../components/profile.vue'
 import axios from 'axios';
 
 export default {
   components: { 
-    navbar 
+    navbar,
+    collablist,
+    profile
   },
   data () {
     return {
@@ -28,6 +45,8 @@ export default {
       isAdmin: null,
       isCollab: null,
       isCommercial: null,
+      showProfile: true,
+      showList: false,
     }
   },
   methods:{
@@ -45,6 +64,16 @@ export default {
         // console.log(this.infoUser);
       })      
     },
+    toggleProfile(){
+      this.showProfile = !this.showProfile
+      this.showList = false
+      // console.log('showProfile',this.showProfile)
+    },
+    toggleList(){
+      this.showList = !this.showList
+      this.showProfile = false
+      // console.log('showList', this.showList)
+    },
   },
   watch: {
     login (login){
@@ -61,7 +90,10 @@ export default {
       }).catch(() => {
         // console.log(this.email);
       })
-    }
+    },
+    // pageProfile (pageProfile){
+    //   console.log(this.showProfile)
+    // }
   },
   beforeMount(){
     this.login = true;
