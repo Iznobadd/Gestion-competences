@@ -19,7 +19,7 @@
   />
   <collablist
   v-if='showList'
-  @giveId="takeId()"
+  @giveId="takeId($event)"
   />
 </template>
 
