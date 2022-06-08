@@ -37,10 +37,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        FirstName : <br/>
-        LastName :  <br/>
-        Email : {{ selectedItemId }}<br/>
-        Available : <br/>
+        FirstName : {{ selectedData.firstName }}  <br/>
+        LastName : {{ selectedData.lastName }} <br/>
+        Email : {{ selectedData.email }}  <br/>
+        Available : {{ selectedData.status }} <br/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -62,6 +62,7 @@ export default {
         return {
           collabList: [],
           selectedItemId: null,
+          selectedData: [],
         }
     },
     methods: {
@@ -70,12 +71,24 @@ export default {
           let data = response.data;
           this.collabList = data;
           // console.log(this.collabList);
+          // console.log(this.collabList[0].lastName)
         })      
       },
       emitId(target){
         this.selectedItemId=target
         // console.log(this.selectedItemId)
         this.$emit('giveId', this.selectedItemId)
+        this.generateSelectedData()
+      },
+      generateSelectedData(){
+        // console.log(this.selectedItemId)
+        // console.log(this.selectedData)
+        this.collabList.forEach(element => {
+          if (element.email==this.selectedItemId){
+            this.selectedData=element
+          }
+        });
+        // console.log(this.selectedData)
       }
     },
   mounted() {
