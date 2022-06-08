@@ -9,6 +9,12 @@
   @clickList="toggleList()"
   />
   <profile
+  :firstName="firstName"
+  :lastName="lastName"
+  :email="email"
+  :isAdmin="isAdmin"
+  :isCommercial="isCommercial"
+  :isCollab="isCollab"
   v-if="showProfile"
   />
   <collablist 
@@ -39,7 +45,7 @@ export default {
       isAdmin: null,
       isCollab: null,
       isCommercial: null,
-      showProfile: false,
+      showProfile: true,
       showList: false,
     }
   },
