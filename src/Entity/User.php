@@ -59,9 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $is_commercial;
 
     #[ORM\OneToMany(mappedBy: 'userId', targetEntity: Experience::class)]
+    // #[Groups(['collab_list'])]
     private $experiences;
 
     #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'user')]
+    #[Groups(['collab_list'])]
     private $skills;
 
     #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'user')]

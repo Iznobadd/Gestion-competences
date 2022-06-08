@@ -19,6 +19,7 @@
   />
   <collablist
   v-if='showList'
+  @giveId="takeId($event)"
   />
 </template>
 
@@ -32,7 +33,7 @@ export default {
   components: { 
     navbar,
     collablist,
-    profile
+    profile,
   },
   data () {
     return {
@@ -47,6 +48,7 @@ export default {
       isCommercial: null,
       showProfile: true,
       showList: false,
+      id: null,
     }
   },
   methods:{
@@ -65,15 +67,19 @@ export default {
       })      
     },
     toggleProfile(){
-      this.showProfile = !this.showProfile
+      this.showProfile = true
       this.showList = false
       // console.log('showProfile',this.showProfile)
     },
     toggleList(){
-      this.showList = !this.showList
+      this.showList = true
       this.showProfile = false
       // console.log('showList', this.showList)
     },
+    takeId(id){
+      this.id=id
+      // console.log(id)
+    }
   },
   watch: {
     login (login){
@@ -91,9 +97,9 @@ export default {
         // console.log(this.email);
       })
     },
-    // pageProfile (pageProfile){
-    //   console.log(this.showProfile)
-    // }
+    id (id){
+      console.log(this.id)
+    },
   },
   beforeMount(){
     this.login = true;
@@ -102,8 +108,5 @@ export default {
 </script>
 
 <style>
-*{
-  margin: 0;
-  padding: 0;
-}
+
 </style>
