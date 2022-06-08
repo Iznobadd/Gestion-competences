@@ -95,14 +95,14 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route('/admin', name: 'admin')]
-    public function admin(EntityManagerInterface $em, UserRepository $userRepository): Response
-    {
-        $user = $this->getUser()->getUserIdentifier();
-        $use = $userRepository->findOneBy(['email' => $user]);
-        $use->setRoles(["ROLE_ADMIN"]);
-        $em->persist($use);
-        $em->flush();
-        return $this->redirectToRoute('app_profile');
-    }
+//    #[Route('/admin', name: 'admin')]
+//    public function admin(EntityManagerInterface $em, UserRepository $userRepository): Response
+//    {
+//        $user = $this->getUser()->getUserIdentifier();
+//        $use = $userRepository->findOneBy(['email' => $user]);
+//        $use->setRoles(["ROLE_ADMIN"]);
+//        $em->persist($use);
+//        $em->flush();
+//        return $this->redirectToRoute('app_profile');
+//    }
 }
