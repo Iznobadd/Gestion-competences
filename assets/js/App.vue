@@ -5,9 +5,11 @@
   :isAdmin="isAdmin"
   :isCommercial="isCommercial"
   :isCollab="isCollab"
-  v-on:pOpen="profileOpen"
+  @clickProfile="toggleProfile()"
+  @clickList="toggleList()"
   />
-  <!-- <h1>Hello {{firstName }} !</h1> -->
+  <h1 v-if="showProfile">Profile !</h1>
+  <h1 v-if="showList">list !</h1>
 </template>
 
 <script>
@@ -29,6 +31,8 @@ export default {
       isAdmin: null,
       isCollab: null,
       isCommercial: null,
+      showProfile: false,
+      showList: false,
     }
   },
   methods:{
@@ -46,20 +50,15 @@ export default {
         // console.log(this.infoUser);
       })      
     },
-    profileOpen(){
-      if (this.pageProfil==false){
-        this.pageList=false
-        this.pageProfil=true
-        // this.$emit('profileOpen')
-        console.log('ouverture du profil')
-      }
+    toggleProfile(){
+      this.showProfile = !this.showProfile
+      this.showList = false
+      // console.log('showProfile',this.showProfile)
     },
-    listOpen(){
-      if (this.pageList==false){
-        this.pageProfil=false
-        this.pageList=true
-        console.log('ouverture de la liste')
-      }
+    toggleList(){
+      this.showList = !this.showList
+      this.showProfile = false
+      // console.log('showList', this.showList)
     },
   },
   watch: {
@@ -77,7 +76,10 @@ export default {
       }).catch(() => {
         // console.log(this.email);
       })
-    }
+    },
+    // pageProfile (pageProfile){
+    //   console.log(this.showProfile)
+    // }
   },
   beforeMount(){
     this.login = true;

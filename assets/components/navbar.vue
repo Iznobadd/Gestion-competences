@@ -8,10 +8,10 @@
         <a class="navbar-brand" href="/">Welcome {{ firstName }} !</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item" @click="profileOpen">
+            <li class="nav-item" @click="emitClickProfile">
               <a class="nav-link" href="#">Profile</a>
             </li>
-            <li v-if="isCommercial" class="nav-item" @click="listOpen">
+            <li v-if="isCommercial" class="nav-item" @click="emitClickList">
               <a class="nav-link" href="#">List of collaborator</a>
             </li>
             <li v-if="isAdmin" class="nav-item">
@@ -30,29 +30,22 @@
 
 <script type="application/javascript">
 export default {
+    emits: ["clickProfile", "clickList"],
     props: ['firstName','email','isAdmin','isCollab','isCommercial'],
     name: "navbar",
     data () {
         return {
-          pageProfil: false,
-          pageList: false,
+          test: 'hi'
         }
     },
     methods: {
-      profileOpen(){
-        if (this.pageProfil==false){
-          this.pageList=false
-          this.pageProfil=true
-          this.$emit('pOpen')
-          // console.log('ouverture du profil')
-        }
+      emitClickProfile(){
+        this.$emit('clickProfile')
+        // console.log("emit profile")
       },
-      listOpen(){
-        if (this.pageList==false){
-          this.pageProfil=false
-          this.pageList=true
-          // console.log('ouverture de la liste')
-        }
+      emitClickList(){
+        this.$emit('clickList')
+        // console.log('emit list')
       },
     }
 };
