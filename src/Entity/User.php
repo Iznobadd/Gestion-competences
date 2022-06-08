@@ -67,6 +67,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $skills;
 
     #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'user')]
+    #[Groups(['collab_list'])]
     private $mission;
 
     public function __construct()

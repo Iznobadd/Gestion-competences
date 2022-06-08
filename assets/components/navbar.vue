@@ -19,7 +19,7 @@
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" @click="emitClickList" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" @click="emitClickList" placeholder="Search by email" aria-label="Search">
             <button class="btn btn-secondary me-2" type="submit" @click="emitClickList">Search</button>
           </form>
           <a href="/logout">
