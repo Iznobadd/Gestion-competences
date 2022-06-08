@@ -33,7 +33,7 @@ export default {
   components: { 
     navbar,
     collablist,
-    profile
+    profile,
   },
   data () {
     return {
@@ -48,7 +48,7 @@ export default {
       isCommercial: null,
       showProfile: true,
       showList: false,
-      // id: null,
+      id: null,
     }
   },
   methods:{
@@ -77,7 +77,8 @@ export default {
       // console.log('showList', this.showList)
     },
     takeId(id){
-      console.log(id)
+      this.id=id
+      // console.log(id)
     }
   },
   watch: {
@@ -96,9 +97,9 @@ export default {
         // console.log(this.email);
       })
     },
-    // pageProfile (pageProfile){
-    //   console.log(this.showProfile)
-    // }
+    id (id){
+      console.log(this.id)
+    },
   },
   beforeMount(){
     this.login = true;
@@ -107,8 +108,5 @@ export default {
 </script>
 
 <style>
-*{
-  margin: 0;
-  padding: 0;
-}
+
 </style>
