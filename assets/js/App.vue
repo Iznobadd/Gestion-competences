@@ -65,12 +65,12 @@ export default {
       })      
     },
     toggleProfile(){
-      this.showProfile = !this.showProfile
+      this.showProfile = true
       this.showList = false
       // console.log('showProfile',this.showProfile)
     },
     toggleList(){
-      this.showList = !this.showList
+      this.showList = true
       this.showProfile = false
       // console.log('showList', this.showList)
     },

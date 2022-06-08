@@ -19,9 +19,13 @@
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-secondary" type="submit">Search</button>
+            <input class="form-control me-2" type="search" @click="emitClickList" placeholder="Search" aria-label="Search">
+            <button class="btn btn-secondary me-2" type="submit" @click="emitClickList">Search</button>
           </form>
+          <a href="/logout">
+            <button class="btn btn-secondary" type="submit">Logout</button>
+          </a>
+
         </div>
       </div>
     </nav>
