@@ -106,7 +106,6 @@ export default {
             this.selectedData=element
             this.selectedDataSkills=element.skills
             this.selectedDataMission=element.mission
-            console.log(this.selectedDataSkills[0].name)
           }
         });
       }
