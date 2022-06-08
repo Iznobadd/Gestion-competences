@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Experience;
+use App\Entity\Mission;
 use App\Entity\Skill;
 use App\Entity\User;
 use App\Repository\ExperiencesRepository;
@@ -101,6 +102,45 @@ class DashboardController extends AbstractController
             return $this->render('dashboard/add_profile_skill.html.twig', [
                 'form' => $form->createView()
             ]);
+    }
+
+    #[Route('/profile/add/mission', name: 'app_add_mission')]
+    public function addMission(Request $request, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        $mission = new Mission();
+        $form = $this->createFormBuilder($mission)
+            ->add('jobName', TextType::class)
+            ->add('startAt', DateType::class, [
+                'input' => 'datetime_immutable',
+            ])
+            ->add('endAt', DateType::class, [
+                'input' => 'datetime_immutable'
+            ])
+            ->add('notEnd', CheckboxType::class, [
+                'mapped' => false,
+                'label' => 'Still in progress',
+                'required' => false,
+            ])
+            ->add('description', TextareaType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if(!$form->get('notEnd')->getData())
+            {
+                $mission->setEndAt(NULL);
+            }
+            $mission->addUser($user);
+            $em->persist($mission);
+            $em->flush();
+            return $this->redirectToRoute('app_profile');
+        }
+
+        return $this->render('dashboard/add_profile_mission.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     #[Route('/collab_list', name: 'app_collab_list')]
