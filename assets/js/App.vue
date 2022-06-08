@@ -8,17 +8,25 @@
   @clickProfile="toggleProfile()"
   @clickList="toggleList()"
   />
-  <h1 v-if="showProfile">Profile !</h1>
-  <h1 v-if="showList">list !</h1>
+  <profile
+  v-if="showProfile"
+  />
+  <collablist 
+  v-if='showList'
+  />
 </template>
 
 <script>
 import navbar from '../components/navbar.vue';
+import collablist from '../components/collablist.vue'
+import profile from '../components/profile.vue'
 import axios from 'axios';
 
 export default {
   components: { 
-    navbar 
+    navbar,
+    collablist,
+    profile
   },
   data () {
     return {
