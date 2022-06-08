@@ -27,7 +27,7 @@ class Mission
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\OneToMany(mappedBy: 'mission', targetEntity: User::class)]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'mission')]
     private $user;
 
     public function __construct()
@@ -100,7 +100,6 @@ class Mission
     {
         if (!$this->user->contains($user)) {
             $this->user[] = $user;
-            $user->setMission($this);
         }
 
         return $this;
@@ -108,12 +107,7 @@ class Mission
 
     public function removeUser(User $user): self
     {
-        if ($this->user->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getMission() === $this) {
-                $user->setMission(null);
-            }
-        }
+        $this->user->removeElement($user);
 
         return $this;
     }
