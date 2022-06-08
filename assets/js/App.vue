@@ -19,6 +19,7 @@
   />
   <collablist
   v-if='showList'
+  @giveId="takeId()"
   />
 </template>
 
@@ -47,6 +48,7 @@ export default {
       isCommercial: null,
       showProfile: true,
       showList: false,
+      // id: null,
     }
   },
   methods:{
@@ -74,6 +76,9 @@ export default {
       this.showProfile = false
       // console.log('showList', this.showList)
     },
+    takeId(id){
+      console.log(id)
+    }
   },
   watch: {
     login (login){
