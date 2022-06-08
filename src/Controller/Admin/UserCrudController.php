@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,20 +25,27 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('firstName'),
-            TextField::new('lastName'),
-            EmailField::new('email'),
-            TextField::new('password')->setFormType(PasswordType::class),
+            FormField::addPanel('User Details'),
+            TextField::new('firstName')->setColumns(6),
+            TextField::new('lastName')->setColumns(6),
+            EmailField::new('email')->setColumns(6),
+            TextField::new('password')->setFormType(PasswordType::class)->setColumns(6),
+
+            FormField::addPanel('Associations'),
             AssociationField::new('skills')->setFormTypeOptions([
                 'by_reference' => false
-            ]),
+            ])->setColumns(6),
             AssociationField::new('mission')->setFormTypeOptions([
                 'by_reference' => false
-            ]),
-            BooleanField::new('status'),
-            BooleanField::new('isAdmin'),
-            BooleanField::new('isCommercial'),
-            BooleanField::new('isCollab')
+            ])->setColumns(6),
+
+            FormField::addPanel(),
+            BooleanField::new('status')->setColumns(3),
+
+            FormField::addPanel('Choose your role'),
+            BooleanField::new('isAdmin')->setColumns(4),
+            BooleanField::new('isCommercial')->setColumns(4),
+            BooleanField::new('isCollab')->setColumns(4)
         ];
     }
 
