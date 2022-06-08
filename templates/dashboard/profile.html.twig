@@ -38,4 +38,17 @@
             No skills added
             <p><a href="{{ path('app_add_skill') }}">Add a skill</a></p>
         {% endif %}
+
+    <h1>My missions</h1>
+    {% if user.mission is not empty %}
+        <ul>
+            {% for missions in user.mission %}
+                <li>{{ missions.jobName }}</li>
+            {% endfor %}
+        </ul>
+        <p><a href="{{ path('app_add_mission') }}">Add an another mission</a></p>
+    {% else %}
+        No mission added
+        <p><a href="{{ path('app_add_mission') }}">Add a mission</a></p>
+    {% endif %}
 {% endblock %}

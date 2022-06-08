@@ -66,14 +66,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['collab_list'])]
     private $skills;
 
-    #[ORM\ManyToOne(targetEntity: Mission::class, inversedBy: 'user')]
-    #[Groups(['collab_list'])]
+    #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'user')]
     private $mission;
 
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
         $this->skills = new ArrayCollection();
+        $this->mission = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,14 +292,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getMission(): ?Mission
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMission(): Collection
     {
         return $this->mission;
     }
 
-    public function setMission(?Mission $mission): self
+    public function addMission(Mission $mission): self
     {
-        $this->mission = $mission;
+        if (!$this->mission->contains($mission)) {
+            $this->mission[] = $mission;
+            $mission->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): self
+    {
+        if ($this->mission->removeElement($mission)) {
+            $mission->removeUser($this);
+        }
 
         return $this;
     }
