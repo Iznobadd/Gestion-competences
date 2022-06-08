@@ -33,16 +33,57 @@
 </template>
 
 <script type="application/javascript">
+import axios from 'axios';
+
 export default {
+    props: ['login'],
     name: "collablist",
     data () {
         return {
-          test: 'hi'
+          collabList: null,
         }
     },
     methods: {
-      
-    }
+      loadCollabList(){
+        axios.get("/api/collab_list").then(response => {
+          let data = response.data;
+          this.collabList = data;
+          console.log(this.collabList);
+        })      
+      },
+    },
+    // watch: {
+    //   login (login){
+    //   const request = new Promise((successCallback, failureCallback)  => {
+    //       this.loadInfoUser();
+    //       if (this.email != null){
+    //         successCallback()
+    //       }else {
+    //         failureCallback()
+    //       }
+    //   })
+    //   request.then(() => {
+    //     // console.log(this.email);
+    //   }).catch(() => {
+    //     // console.log(this.email);
+    //   })
+    // },
+  // },
+  beforeMount() {
+    const requestList = new Promise((successCallback, failureCallback)  => {
+      this.loadCollabList();
+      if (this.collabList != null){
+        successCallback()
+      }else {
+        failureCallback()
+      }
+    })
+    requestList.then(() => {
+      console.log(this.collabList);
+    }).catch(() => {
+      console.log(this.collabList);
+    })
+  }
 };
 </script>
 

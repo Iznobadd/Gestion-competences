@@ -34,4 +34,12 @@ class ApiController extends AbstractController
             'non connecté'
         );
     }
+    #[Route('/api/collab_list', name: 'api_collab_list')]
+    public function collabList(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findBy(['is_collab' => true]);
+        return $this->json(
+            $users, 200, [], ['groups' => 'collab_list'],
+        );
+    }
 }

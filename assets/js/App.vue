@@ -17,7 +17,8 @@
   :isCollab="isCollab"
   v-if="showProfile"
   />
-  <collablist 
+  <collablist
+  :login="login"
   v-if='showList'
   />
 </template>
