@@ -29,7 +29,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('password'),
             AssociationField::new('skills'),
             AssociationField::new('mission'),
-            AssociationField::new('experiences'),
+            // AssociationField::new('experiences'),
             BooleanField::new('status'),
             BooleanField::new('isAdmin'),
             BooleanField::new('isCommercial'),

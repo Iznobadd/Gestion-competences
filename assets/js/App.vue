@@ -98,7 +98,7 @@ export default {
       })
     },
     id (id){
-      console.log(this.id)
+      // console.log(this.id)
     },
   },
   beforeMount(){
