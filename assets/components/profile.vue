@@ -12,6 +12,7 @@
         <div>Collaborator : {{ (isCollab) ? 'Oui' : 'Non' }}</div>
         <div>Commercial : {{ (isCommercial) ? 'Oui' : 'Non' }}</div>
         <div>Admin : {{ (isAdmin) ? 'Oui' : 'Non' }}</div>
+        <a href="/admin" class="card-link">Edit Profile</a>
       </div>
     </div>
 
