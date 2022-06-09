@@ -22,7 +22,7 @@
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.email }}</td>
-                <td><button class="btn btn-primary" href="{{ path('app_transform_to') }}">Transform to Collaborator</button></td>
+                <td><a class="btn btn-primary" href="{{ path('app_transform_to', {id: user.id}) }}">Transform to Collaborator</a></td>
             </tr>
             {% set i = i+1 %}
         {% endfor %}
