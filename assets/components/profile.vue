@@ -18,7 +18,7 @@
 
     <div class="row mt-5">
       <div class="col-6 d-flex flex-column align-items-center">
-        <h4>My Skill(s)</h4>
+        <h4 v-if="this.skillsUser.length>=1">My Skill(s)</h4>
         <div class="d-flex flex-wrap">
           <div v-for="skill in this.skillsUser" :key="skill.id">
             <!-- card -->
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="col-6 d-flex flex-column align-items-center">
-        <h4>My Mission(s)</h4>
+        <h4 v-if="this.missionsUser.length>=1">My Mission(s)</h4>
         <div class="d-flex flex-wrap">
           <div v-for="mission in this.missionsUser" :key="mission.id">
             <!-- card -->

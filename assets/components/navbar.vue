@@ -15,7 +15,7 @@
               <a class="nav-link" href="#">List of collaborator</a>
             </li>
             <li v-if="isAdmin" class="nav-item">
-              <a class="nav-link" href="/admin">Admin panel</a>
+              <a class="nav-link" target="_blank" href="/admin">Admin panel</a>
             </li>
           </ul>
           <form class="d-flex" role="search">
