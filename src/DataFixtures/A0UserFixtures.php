@@ -6,7 +6,7 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixtures extends Fixture
+class A0UserFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
@@ -23,11 +23,12 @@ class UserFixtures extends Fixture
             $user->setLastName($i);
             $user->setPassword('123456');
             $user->setStatus(true);
+            $this->addReference(User::class.'_'.$i, $user);
             $manager->persist($user);
         }
 
         // ADD SALES USER
-        for($i = 1; $i <= 20; $i++)
+        for($i = 51; $i <= 70; $i++)
         {
             $user = new User();
             $user->setRoles(['ROLE_SALE']);
@@ -39,11 +40,12 @@ class UserFixtures extends Fixture
             $user->setLastName($i);
             $user->setPassword('123456');
             $user->setStatus(true);
+            $this->addReference(User::class.'_'.$i, $user);
             $manager->persist($user);
         }
 
         // ADD ADMIN USER
-        for($i = 1; $i <= 10; $i++)
+        for($i = 71; $i <= 80; $i++)
         {
             $user = new User();
             $user->setRoles(['ROLE_ADMIN']);
@@ -55,11 +57,12 @@ class UserFixtures extends Fixture
             $user->setLastName($i);
             $user->setPassword('123456');
             $user->setStatus(true);
+            $this->addReference(User::class.'_'.$i, $user);
             $manager->persist($user);
         }
 
         // ADD CANDIDATE USER
-        for($i = 1; $i <= 10; $i++)
+        for($i = 81; $i <= 90; $i++)
         {
             $user = new User();
             $user->setRoles(['ROLE_USER']);
@@ -71,6 +74,7 @@ class UserFixtures extends Fixture
             $user->setLastName($i);
             $user->setPassword('123456');
             $user->setStatus(false);
+            $this->addReference(User::class.'_'.$i, $user);
             $manager->persist($user);
         }
 
