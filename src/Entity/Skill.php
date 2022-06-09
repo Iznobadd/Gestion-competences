@@ -26,6 +26,7 @@ class Skill
     private $user;
 
     #[ORM\OneToMany(mappedBy: 'skill', targetEntity: CardSkill::class)]
+    #[Groups(['info_user'])]
     private $cardSkills;
 
     public function __construct()
