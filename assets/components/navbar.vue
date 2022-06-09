@@ -11,7 +11,7 @@
             <li class="nav-item" @click="emitClickProfile">
               <a class="nav-link" href="#">Profile</a>
             </li>
-            <li v-if="isCommercial" class="nav-item" @click="emitClickList">
+            <li v-if="isCommercial || isAdmin" class="nav-item" @click="emitClickList">
               <a class="nav-link" href="#">List of collaborator</a>
             </li>
             <li v-if="isAdmin" class="nav-item">
