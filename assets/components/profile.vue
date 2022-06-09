@@ -17,10 +17,10 @@
 
     <div class="row mt-5">
       <div class="col-6 d-flex justify-content-center">
-        <h4>My Skills</h4>
+        <h4>My Skill(s)</h4>
       </div>
       <div class="col-6 d-flex justify-content-center">
-        <h4>My Missions</h4>
+        <h4>My Mission(s)</h4>
       </div>
     </div>
   </div>

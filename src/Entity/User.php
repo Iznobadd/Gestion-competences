@@ -63,11 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $experiences;
 
     #[ORM\ManyToMany(targetEntity: Skill::class, mappedBy: 'user')]
-    #[Groups(['collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $skills;
 
     #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'user')]
-    #[Groups(['collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $mission;
 
     public function __construct()

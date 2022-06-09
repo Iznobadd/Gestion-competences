@@ -23,11 +23,11 @@ class Mission
     private $endAt;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $jobName;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $description;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'mission')]
