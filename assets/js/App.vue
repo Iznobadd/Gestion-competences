@@ -23,6 +23,7 @@
   <collablist
   v-if='showList'
   @giveId="takeId($event)"
+  :searchData="searchData"
   />
 </template>
 

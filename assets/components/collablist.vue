@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="user in this.collabList" :key='user.email'>
+      <tr v-for="user in filteredData" :key='user.email'>
         <th scope="row">{{ user.id }}</th>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
@@ -75,45 +75,51 @@
 import axios from 'axios';
 
 export default {
-    emits: ["giveId"],
-    name: "collablist",
-    data () {
-        return {
-          collabList: [],
-          selectedItemId: null,
-          selectedData: [],
-          selectedDataSkills: [],
-          selectedDataMission: [],
-          selectedDataExp: [],
-        }
-    },
-    methods: {
-      loadCollabList(){
-        axios.get("/api/collab_list").then(response => {
-          let data = response.data;
-          this.collabList = data;
-          // console.log(this.collabList);
-          // console.log(this.collabList[0].lastName)
-        })      
-      },
-      emitId(target){
-        this.selectedItemId=target
-        // console.log(this.selectedItemId)
-        this.$emit('giveId', this.selectedItemId)
-        this.generateSelectedData()
-      },
-      generateSelectedData(){
-        // console.log(this.selectedItemId)
-        // console.log(this.selectedData)
-        this.collabList.forEach(element => {
-          if (element.email==this.selectedItemId){
-            this.selectedData=element
-            this.selectedDataSkills=element.skills
-            this.selectedDataMission=element.mission
-          }
-        });
+  emits: ["giveId"],
+  props: ["searchData"],
+  name: "collablist",
+  data () {
+      return {
+        collabList: [],
+        selectedItemId: null,
+        selectedData: [],
+        selectedDataSkills: [],
+        selectedDataMission: [],
+        selectedDataExp: [],
       }
+  },
+  methods: {
+    loadCollabList(){
+      axios.get("/api/collab_list").then(response => {
+        let data = response.data;
+        this.collabList = data;
+        // console.log(this.collabList);
+        // console.log(this.collabList[0].lastName)
+      })      
     },
+    emitId(target){
+      this.selectedItemId=target
+      // console.log(this.selectedItemId)
+      this.$emit('giveId', this.selectedItemId)
+      this.generateSelectedData()
+    },
+    generateSelectedData(){
+      // console.log(this.selectedItemId)
+      // console.log(this.selectedData)
+      this.collabList.forEach(element => {
+        if (element.email==this.selectedItemId){
+          this.selectedData=element
+          this.selectedDataSkills=element.skills
+          this.selectedDataMission=element.mission
+        }
+      });
+    }
+  },
+  computed: {
+    filteredData(){
+      return this.collabList.filter(user => user.email.toLowerCase().includes(this.searchData.toLowerCase()))
+    }
+  },
   mounted() {
     const requestList = new Promise((successCallback, failureCallback)  => {
       this.loadCollabList();
