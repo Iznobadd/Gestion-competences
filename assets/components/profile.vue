@@ -18,15 +18,36 @@
     <div class="row mt-5">
       <div class="col-6 d-flex flex-column align-items-center">
         <h4>My Skill(s)</h4>
-        <div v-for="skill in this.skillsUser" :key="skill.id">
-          {{ skill.name }}
+        <div class="d-flex flex-wrap">
+          <div v-for="skill in this.skillsUser" :key="skill.id">
+            <!-- card -->
+            <div class="card m-1" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{ skill.name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">5 étoiles</p>
+                <a href="/admin" class="card-link">Edit Skill</a>
+                <!-- <a href="#" class="card-link">Another link</a> -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-6 d-flex flex-column align-items-center">
         <h4>My Mission(s)</h4>
-        <div v-for="mission in this.missionsUser" :key="mission.id">
-          {{ mission.jobName }} <br/>
-          {{ mission.description }}
+        <div class="d-flex flex-wrap">
+          <div v-for="mission in this.missionsUser" :key="mission.id">
+            <!-- card -->
+            <div class="card m-1" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">{{ mission.jobName }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">{{ mission.description }}</p>
+                <a href="/admin" class="card-link">Edit Mission</a>
+                <!-- <a href="#" class="card-link">Another link</a> -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
