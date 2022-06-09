@@ -3,7 +3,11 @@
 {% block title %}Your profile{% endblock %}
 
 {% block body %}
-    <h1>My profil</h1>
+    <br/>
+    <a class="m-4" href="/">
+        <button class="btn btn-primary">Back To Profile</button>
+    </a>
+    {# <h1>My profil</h1> #}
     <h1>{% if user.isAdmin %}Administrator{% elseif user.isCollab %}Collaborator{% else %}SalesMan{% endif %}</h1>
     <p>{{ user.firstName }} {{ user.lastName }}</p>
     <p>mail : {{ user.email }}</p>
@@ -52,4 +56,8 @@
         No mission added
         <p><a href="{{ path('app_add_mission') }}">Add a mission</a></p>
     {% endif %}
+    <a class="m-4" href="/">
+        <button class="btn btn-primary">Back To Profile</button>
+    </a>
+    <br/><br/>
 {% endblock %}
