@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\CardSkill;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +27,7 @@ class Skill
     private $user;
 
     #[ORM\OneToMany(mappedBy: 'skill', targetEntity: CardSkill::class)]
+    #[Groups(['info_user'])]
     private $cardSkills;
 
     public function __construct()

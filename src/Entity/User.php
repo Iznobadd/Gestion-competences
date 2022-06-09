@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Skill;
 use App\Entity\Mission;
+use App\Entity\CardSkill;
 use App\Entity\Experience;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;

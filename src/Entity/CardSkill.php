@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\CardSkillRepository;
+use App\Entity\Skill;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CardSkillRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CardSkillRepository::class)]
 class CardSkill
@@ -11,12 +13,15 @@ class CardSkill
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['info_user'])]
     private $id;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['info_user'])]
     private $love;
 
     #[ORM\Column(type: 'integer', nullable: true)]
+    #[Groups(['info_user'])]
     private $stars;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'cardSkills')]

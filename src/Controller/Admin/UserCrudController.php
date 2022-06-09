@@ -30,7 +30,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstName')->setColumns(6),
             TextField::new('lastName')->setColumns(6),
             EmailField::new('email')->setColumns(6),
-            TextField::new('password')->setFormType(PasswordType::class)->setColumns(6),
+            // TextField::new('password')->setFormType(PasswordType::class)->setColumns(6),
 
             FormField::addPanel('Associations'),
             AssociationField::new('skills')->setFormTypeOptions([

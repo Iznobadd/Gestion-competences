@@ -25,8 +25,14 @@
             <div class="card m-1" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">{{ skill.name }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">5 étoiles</p>
+
+                <!-- <div v-for="item in skill.cardSkills[0]" :key="skill.cardSkills[0]">
+                  <h6 class="card-subtitle mb-2 text-muted">{{ item }}</h6>
+                </div> -->
+                
+                <h6 class="card-subtitle mb-2 text-muted">{{ skill.cardSkills[0] }}</h6>
+
+                <p class="card-text">{{ skill.cardSkills[0] }}</p>
                 <a href="/admin" class="card-link">Edit Skill</a>
                 <!-- <a href="#" class="card-link">Another link</a> -->
               </div>
