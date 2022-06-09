@@ -19,7 +19,7 @@
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" @click="emitClickList" placeholder="Search by email" aria-label="Search">
+            <input class="form-control me-2" type="search" v-model="search" @click="emitClickList" placeholder="Search by email" aria-label="Search">
             <button class="btn btn-secondary me-2" type="submit" @click="emitClickList">Search</button>
           </form>
           <a href="/logout">
@@ -34,12 +34,12 @@
 
 <script type="application/javascript">
 export default {
-    emits: ["clickProfile", "clickList"],
+    emits: ["clickProfile", "clickList", "search"],
     props: ['firstName','email','isAdmin','isCollab','isCommercial'],
     name: "navbar",
     data () {
         return {
-          test: 'hi'
+          search: ""
         }
     },
     methods: {
@@ -51,6 +51,12 @@ export default {
         this.$emit('clickList')
         // console.log('emit list')
       },
+    },
+    watch: {
+      search (search){
+        // console.log(this.search)
+        this.$emit('search', this.search)
+      }
     }
 };
 </script>
