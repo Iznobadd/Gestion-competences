@@ -55,7 +55,7 @@ export default {
       showProfile: true,
       showList: false,
       id: null,
-      searchData: null,
+      searchData: '',
     }
   },
   methods:{
