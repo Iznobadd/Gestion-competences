@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -43,6 +44,13 @@ class UserCrudController extends AbstractCrudController
             BooleanField::new('status')->setColumns(3),
 
             FormField::addPanel('Choose your role'),
+            ChoiceField::new('roles')->setChoices([
+                'Admin' => 'ROLE_ADMIN',
+                'Collaborator' => 'ROLE_COLLABORATOR',
+                'SalesMan' => 'ROLE_SALE',
+                'Candidate' => 'ROLE_USER'
+            ])
+                ->allowMultipleChoices(true),
             BooleanField::new('isAdmin')->setColumns(4),
             BooleanField::new('isCommercial')->setColumns(4),
             BooleanField::new('isCollab')->setColumns(4)

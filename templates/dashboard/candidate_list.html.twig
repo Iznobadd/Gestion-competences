@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of Candidate{% endblock %}
+
+{% block body %}
+    {% set i = 1 %}
+    <h1>Candidate list</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+            <th scope="col">Transform</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row"> {{ i }}</th>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td><a class="btn btn-primary" href="{{ path('app_transform_to', {id: user.id}) }}">Transform to Collaborator</a></td>
+            </tr>
+            {% set i = i+1 %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

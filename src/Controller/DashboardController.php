@@ -151,6 +151,26 @@ class DashboardController extends AbstractController
         return $this->render('dashboard/collab_list.html.twig', compact('users'));
     }
 
+    #[Route('/candidate_list', name: 'app_candidate_list')]
+    #[IsGranted('ROLE_SALE')]
+    public function candidateList(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findByRole('ROLE_USER');
+        return $this->render('dashboard/candidate_list.html.twig', compact('users'));
+    }
+
+    #[Route('/transform/{id}', name: 'app_transform_to')]
+    #[IsGranted('ROLE_SALE')]
+    public function transformCandidate(User $user, UserRepository $userRepository, EntityManagerInterface $em): Response
+    {
+        $profile = $userRepository->findOneBy(['id' => $user]);
+        $profile->setIsCollab(true);
+        $profile->setRoles(['ROLE_COLLAB']);
+        $em->persist($profile);
+        $em->flush();
+        return $this->redirectToRoute('app_candidate_list');
+    }
+
     #[Route('/profile/{id}', name: 'app_collab_profile')]
     #[IsGranted('ROLE_SALE')]
     public function collabProfile(User $user, UserRepository $userRepository, ExperiencesRepository $experiencesRepository): Response

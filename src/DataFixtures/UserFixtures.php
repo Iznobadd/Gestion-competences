@@ -58,6 +58,21 @@ class UserFixtures extends Fixture
             $manager->persist($user);
         }
 
+        // ADD CANDIDATE USER
+        for($i = 1; $i <= 10; $i++)
+        {
+            $user = new User();
+            $user->setRoles(['ROLE_USER']);
+            $user->setIsCommercial(false);
+            $user->setIsCollab(false);
+            $user->setIsAdmin(false);
+            $user->setEmail('candidate' . $i . '@gmail.com');
+            $user->setFirstName('Candidate');
+            $user->setLastName($i);
+            $user->setPassword('123456');
+            $user->setStatus(false);
+            $manager->persist($user);
+        }
 
         $manager->flush();
     }
