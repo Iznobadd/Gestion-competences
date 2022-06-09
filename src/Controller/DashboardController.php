@@ -30,16 +30,16 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted('ROLE_COLLAB')]
 class DashboardController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    public function profile(ExperiencesRepository $experiencesRepository): Response
+    #[Route('/edit', name: 'app_edit')]
+    public function edit(ExperiencesRepository $experiencesRepository): Response
     {
         $user = $this->getUser();
             $exps = $experiencesRepository->findBy(['user' => $user]);
 
-            return $this->render('dashboard/profile.html.twig', compact('user', 'exps'));
+            return $this->render('dashboard/edit.html.twig', compact('user', 'exps'));
     }
 
-    #[Route('/profile/add/exp', name: 'app_add_exp')]
+    #[Route('/edit/add/exp', name: 'app_add_exp')]
     public function addExp(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -71,16 +71,16 @@ class DashboardController extends AbstractController
                 $exp->setUser($user);
                 $em->persist($exp);
                 $em->flush();
-                return $this->redirectToRoute('app_profile');
+                return $this->redirectToRoute('app_edit');
             }
 
-            return $this->render('dashboard/add_profile_exp.html.twig', [
+            return $this->render('dashboard/add_edit_exp.html.twig', [
                 'form' => $form->createView()
             ]);
 
     }
 
-    #[Route('/profile/add/skill', name: 'app_add_skill')]
+    #[Route('/edit/add/skill', name: 'app_add_skill')]
     public function addSkill(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -98,15 +98,15 @@ class DashboardController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->flush();
-                return $this->redirectToRoute('app_profile');
+                return $this->redirectToRoute('app_edit');
             }
 
-            return $this->render('dashboard/add_profile_skill.html.twig', [
+            return $this->render('dashboard/add_edit_skill.html.twig', [
                 'form' => $form->createView()
             ]);
     }
 
-    #[Route('/profile/update/skill/{id}', name: 'app_update_skill')]
+    #[Route('/edit/update/skill/{id}', name: 'app_update_skill')]
     public function updateSkill(Skill $skill, Request $request, EntityManagerInterface $em): Response
     {
         if(empty($skill->getCardSkills()->getValues())) {
@@ -159,15 +159,15 @@ class DashboardController extends AbstractController
             $card->setUser($this->getUser());
             $em->persist($card);
             $em->flush();
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_edit');
         }
 
-        return $this->render('dashboard/update_profile_skill.html.twig', [
+        return $this->render('dashboard/update_edit_skill.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
-    #[Route('/profile/add/mission', name: 'app_add_mission')]
+    #[Route('/edit/add/mission', name: 'app_add_mission')]
     public function addMission(Request $request, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -198,10 +198,10 @@ class DashboardController extends AbstractController
             $mission->addUser($user);
             $em->persist($mission);
             $em->flush();
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_edit');
         }
 
-        return $this->render('dashboard/add_profile_mission.html.twig', [
+        return $this->render('dashboard/add_edit_mission.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -234,13 +234,13 @@ class DashboardController extends AbstractController
         return $this->redirectToRoute('app_candidate_list');
     }
 
-    #[Route('/profile/{id}', name: 'app_collab_profile')]
+    #[Route('/edit/{id}', name: 'app_collab_edit')]
     #[IsGranted('ROLE_SALE')]
-    public function collabProfile(User $user, UserRepository $userRepository, ExperiencesRepository $experiencesRepository): Response
+    public function collabEdit(User $user, UserRepository $userRepository, ExperiencesRepository $experiencesRepository): Response
     {
         $profile = $userRepository->findOneBy(['id' => $user]);
         $exps = $experiencesRepository->findBy(['user' => $user]);
-        return $this->render('dashboard/collab_profile.html.twig', [
+        return $this->render('dashboard/collab_edit.html.twig', [
             'user' => $profile,
             'exps' =>$exps
         ]);

@@ -32,6 +32,7 @@ class Experience
     private $description;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'experiences')]
+    // #[Groups(['collab_list'])]
     private $user;
 
     public function getId(): ?int

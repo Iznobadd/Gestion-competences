@@ -11,11 +11,11 @@
             <li class="nav-item" @click="emitClickProfile">
               <a class="nav-link" href="#">Profile</a>
             </li>
-            <li v-if="isCommercial" class="nav-item" @click="emitClickList">
+            <li v-if="isCommercial || isAdmin" class="nav-item" @click="emitClickList">
               <a class="nav-link" href="#">List of collaborator</a>
             </li>
             <li v-if="isAdmin" class="nav-item">
-              <a class="nav-link" href="/admin">Admin panel</a>
+              <a class="nav-link" target="_blank" href="/admin">Admin panel</a>
             </li>
           </ul>
           <form class="d-flex" role="search">

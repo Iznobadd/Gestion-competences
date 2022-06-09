@@ -12,13 +12,13 @@
         <div>Collaborator : {{ (isCollab) ? 'Oui' : 'Non' }}</div>
         <div>Commercial : {{ (isCommercial) ? 'Oui' : 'Non' }}</div>
         <div>Admin : {{ (isAdmin) ? 'Oui' : 'Non' }}</div>
-        <a href="/admin" class="card-link">Edit Profile</a>
+        <a href="/edit" class="card-link">Edit Profile</a>
       </div>
     </div>
 
     <div class="row mt-5">
       <div class="col-6 d-flex flex-column align-items-center">
-        <h4>My Skill(s)</h4>
+        <h4 v-if="this.skillsUser.length>=1">My Skill(s)</h4>
         <div class="d-flex flex-wrap">
           <div v-for="skill in this.skillsUser" :key="skill.id">
             <!-- card -->
@@ -30,10 +30,10 @@
                   <h6 class="card-subtitle mb-2 text-muted">{{ item }}</h6>
                 </div> -->
                 
-                <h6 class="card-subtitle mb-2 text-muted">{{ skill.cardSkills[0] }}</h6>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">{{ skill.cardSkills[0] }}</h6> -->
 
                 <p class="card-text">{{ skill.cardSkills[0] }}</p>
-                <a href="/admin" class="card-link">Edit Skill</a>
+                <a href="/edit" class="card-link">Edit Skill</a>
                 <!-- <a href="#" class="card-link">Another link</a> -->
               </div>
             </div>
@@ -41,16 +41,16 @@
         </div>
       </div>
       <div class="col-6 d-flex flex-column align-items-center">
-        <h4>My Mission(s)</h4>
+        <h4 v-if="this.missionsUser.length>=1">My Mission(s)</h4>
         <div class="d-flex flex-wrap">
           <div v-for="mission in this.missionsUser" :key="mission.id">
             <!-- card -->
             <div class="card m-1" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">{{ mission.jobName }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
                 <p class="card-text">{{ mission.description }}</p>
-                <a href="/admin" class="card-link">Edit Mission</a>
+                <a href="/edit" class="card-link">Edit Mission</a>
                 <!-- <a href="#" class="card-link">Another link</a> -->
               </div>
             </div>
