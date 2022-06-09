@@ -69,7 +69,7 @@ export default {
         this.isCommercial = this.infoUser.is_commercial;
         this.missionsUser = this.infoUser.mission;
         this.skillsUser = this.infoUser.skills
-        console.log(this.missionsUser);
+        console.log(this.skillsUser.skillsCard);
       })      
     },
     toggleProfile(){
