@@ -16,11 +16,18 @@
     </div>
 
     <div class="row mt-5">
-      <div class="col-6 d-flex justify-content-center">
+      <div class="col-6 d-flex flex-column align-items-center">
         <h4>My Skill(s)</h4>
+        <div v-for="skill in this.skillsUser" :key="skill.id">
+          {{ skill.name }}
+        </div>
       </div>
-      <div class="col-6 d-flex justify-content-center">
+      <div class="col-6 d-flex flex-column align-items-center">
         <h4>My Mission(s)</h4>
+        <div v-for="mission in this.missionsUser" :key="mission.id">
+          {{ mission.jobName }} <br/>
+          {{ mission.description }}
+        </div>
       </div>
     </div>
   </div>
@@ -28,7 +35,7 @@
 
 <script type="application/javascript">
 export default {
-    props: ['firstName', 'lastName','email','isAdmin','isCollab','isCommercial'],
+    props: ['firstName', 'lastName','email','isAdmin','isCollab','isCommercial', 'skillsUser', 'missionsUser'],
     name: "profile",
     data () {
         return {
