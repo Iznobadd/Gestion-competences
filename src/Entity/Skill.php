@@ -25,9 +25,13 @@ class Skill
     // #[Groups(['collab_list'])]
     private $user;
 
+    #[ORM\OneToMany(mappedBy: 'skill', targetEntity: CardSkill::class)]
+    private $cardSkills;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->cardSkills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,5 +78,35 @@ class Skill
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, CardSkill>
+     */
+    public function getCardSkills(): Collection
+    {
+        return $this->cardSkills;
+    }
+
+    public function addCardSkill(CardSkill $cardSkill): self
+    {
+        if (!$this->cardSkills->contains($cardSkill)) {
+            $this->cardSkills[] = $cardSkill;
+            $cardSkill->setSkill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCardSkill(CardSkill $cardSkill): self
+    {
+        if ($this->cardSkills->removeElement($cardSkill)) {
+            // set the owning side to null (unless already changed)
+            if ($cardSkill->getSkill() === $this) {
+                $cardSkill->setSkill(null);
+            }
+        }
+
+        return $this;
     }
 }
