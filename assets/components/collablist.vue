@@ -45,15 +45,19 @@
           Available : {{ selectedData.status }} <br/>
         </div>
 
-        <h2 class="m-2">User Skill(s)</h2>
-        <div v-for="skill in this.selectedDataSkills" :key="skill.id" class="m-2">
-          {{ skill.name }}
+        <div v-if="this.selectedDataSkills.length>=1">
+          <h2 class="m-2">User Skill(s)</h2>
+          <div v-for="skill in this.selectedDataSkills" :key="skill.id" class="m-2">
+            {{ skill.name }}
+          </div>
         </div>
 
-        <h2 class="m-2">User Mission(s)</h2>
-        <div v-for="mission in this.selectedDataMission" :key="mission.id" class="m-2">
-          {{ mission.jobName }} : <br/>
-          {{ mission.description }} <br/>
+        <div v-if="this.selectedDataMission.length>=1">
+          <h2 class="m-2">User Mission(s)</h2>
+          <div v-for="mission in this.selectedDataMission" :key="mission.id" class="m-2">
+            {{ mission.jobName }} : <br/>
+            {{ mission.description }} <br/>
+          </div>
         </div>
 
       </div>
