@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Entity\Skill;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CardSkillRepository;
-use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CardSkillRepository::class)]

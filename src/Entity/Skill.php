@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\CardSkill;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\Collection;
