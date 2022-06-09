@@ -70,11 +70,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['info_user', 'collab_list'])]
     private $mission;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CardSkill::class, orphanRemoval: true)]
+    private $cardSkills;
+
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
         $this->skills = new ArrayCollection();
         $this->mission = new ArrayCollection();
+        $this->cardSkills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -315,6 +319,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->mission->removeElement($mission)) {
             $mission->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CardSkill>
+     */
+    public function getCardSkills(): Collection
+    {
+        return $this->cardSkills;
+    }
+
+    public function addCardSkill(CardSkill $cardSkill): self
+    {
+        if (!$this->cardSkills->contains($cardSkill)) {
+            $this->cardSkills[] = $cardSkill;
+            $cardSkill->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCardSkill(CardSkill $cardSkill): self
+    {
+        if ($this->cardSkills->removeElement($cardSkill)) {
+            // set the owning side to null (unless already changed)
+            if ($cardSkill->getUser() === $this) {
+                $cardSkill->setUser(null);
+            }
         }
 
         return $this;

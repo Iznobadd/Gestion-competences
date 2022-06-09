@@ -31,6 +31,7 @@
             <ul>
                 {% for skill in user.skills %}
                     <li>{{ skill.name }}</li>
+                    <p><a href="{{ path('app_update_skill', {id: skill.id}) }}">Update skill</a></p>
                 {% endfor %}
             </ul>
             <p><a href="{{ path('app_add_skill') }}">Add an another skill</a></p>
