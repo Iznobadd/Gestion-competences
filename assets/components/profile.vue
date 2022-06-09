@@ -32,7 +32,7 @@
                 
                 <h6 class="card-subtitle mb-2 text-muted">{{ skill.cardSkills[0] }}</h6>
 
-                <p class="card-text">5 étoiles</p>
+                <p class="card-text">{{ skill.cardSkills[0] }}</p>
                 <a href="/admin" class="card-link">Edit Skill</a>
                 <!-- <a href="#" class="card-link">Another link</a> -->
               </div>
