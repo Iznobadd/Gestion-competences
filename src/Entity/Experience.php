@@ -16,19 +16,19 @@ class Experience
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['exps_user', 'collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $jobName;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    #[Groups(['exps_user', 'collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $startedAt;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
-    #[Groups(['exps_user', 'collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $endAt;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['exps_user', 'collab_list'])]
+    #[Groups(['info_user', 'collab_list'])]
     private $description;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'experiences')]

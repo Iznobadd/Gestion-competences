@@ -27,7 +27,6 @@ class ApiController extends AbstractController
 
             return $this->json(
                 $user, 200, [], ['groups' => 'info_user'],
-                $exps, 200, [], ['groups' => 'exps_user'],
             );
         }
         return $this->json(

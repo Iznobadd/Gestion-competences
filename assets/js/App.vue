@@ -15,6 +15,8 @@
   :isAdmin="isAdmin"
   :isCommercial="isCommercial"
   :isCollab="isCollab"
+  :skillsUser="skillsUser"
+  :missionsUser="missionsUser"
   v-if="showProfile"
   />
   <collablist
@@ -39,6 +41,8 @@ export default {
     return {
       login: false,
       infoUser : [],
+      skillsUser: [],
+      missionsUser: [],
       firstName: null,
       lastName: null,
       email: null,
@@ -63,7 +67,9 @@ export default {
         this.isAdmin = this.infoUser.is_admin;
         this.isCollab = this.infoUser.is_collab;
         this.isCommercial = this.infoUser.is_commercial;
-        // console.log(this.infoUser);
+        this.missionsUser = this.infoUser.mission;
+        this.skillsUser = this.infoUser.skills
+        console.log(this.missionsUser);
       })      
     },
     toggleProfile(){
