@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\SkillRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SkillRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SkillRepository::class)]
 class Skill
@@ -13,12 +14,15 @@ class Skill
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['collab_list'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['collab_list'])]
     private $name;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'skills')]
+    // #[Groups(['collab_list'])]
     private $user;
 
     public function __construct()

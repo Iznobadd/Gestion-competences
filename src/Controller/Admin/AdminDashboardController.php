@@ -45,7 +45,7 @@ class AdminDashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToRoute('Homepage', 'fa-solid fa-house', 'app_profile');
+        yield MenuItem::linkToRoute('Homepage', 'fa-solid fa-house', 'app_redirect');
         yield MenuItem::linkToDashboard('Users', 'fa-solid fa-user');
         yield MenuItem::linkToCrud('Skills', 'fa-solid fa-fill-drip', Skill::class);
         yield MenuItem::linkToCrud('Experiences', 'fa-solid fa-briefcase', Experience::class);

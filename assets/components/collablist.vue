@@ -33,14 +33,29 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">User</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">{{ selectedData.firstName }} {{ selectedData.lastName }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        FirstName : {{ selectedData.firstName }}  <br/>
-        LastName : {{ selectedData.lastName }} <br/>
-        Email : {{ selectedData.email }}  <br/>
-        Available : {{ selectedData.status }} <br/>
+        <h2 class="m-2">User informations</h2>
+        <div class="m-2">
+          FirstName : {{ selectedData.firstName }}  <br/>
+          LastName : {{ selectedData.lastName }} <br/>
+          Email : {{ selectedData.email }}  <br/>
+          Available : {{ selectedData.status }} <br/>
+        </div>
+
+        <h2 class="m-2">User Skill(s)</h2>
+        <div v-for="skill in this.selectedDataSkills" :key="skill.id" class="m-2">
+          {{ skill.name }}
+        </div>
+
+        <h2 class="m-2">User Mission(s)</h2>
+        <div v-for="mission in this.selectedDataMission" :key="mission.id" class="m-2">
+          {{ mission.jobName }} : <br/>
+          {{ mission.description }} <br/>
+        </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -63,6 +78,9 @@ export default {
           collabList: [],
           selectedItemId: null,
           selectedData: [],
+          selectedDataSkills: [],
+          selectedDataMission: [],
+          selectedDataExp: [],
         }
     },
     methods: {
@@ -86,9 +104,10 @@ export default {
         this.collabList.forEach(element => {
           if (element.email==this.selectedItemId){
             this.selectedData=element
+            this.selectedDataSkills=element.skills
+            this.selectedDataMission=element.mission
           }
         });
-        // console.log(this.selectedData)
       }
     },
   mounted() {
