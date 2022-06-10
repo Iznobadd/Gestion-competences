@@ -81,6 +81,8 @@ export default {
   data () {
       return {
         collabList: [],
+        candidateList: [],
+        mergedList: [],
         selectedItemId: null,
         selectedData: [],
         selectedDataSkills: [],
@@ -96,6 +98,23 @@ export default {
         // console.log(this.collabList);
         // console.log(this.collabList[0].lastName)
       })      
+    },
+    loadCandidateList(){
+      axios.get("/api/candidate_list").then(response => {
+        let data = response.data;
+        console.log(data)
+        this.candidateList = data;
+      })      
+    },
+    // mergeList(){
+    //   this.mergedList = [...this.collabList, ...this.candidateList];
+    //   console.log(this.mergedList);
+    // },
+    requestEvent(){
+      this.loadCollabList();
+      // this.loadCandidateList();
+      // this.mergeList();
+      // console.log(this.candidateList);
     },
     emitId(target){
       this.selectedItemId=target
@@ -122,7 +141,7 @@ export default {
   },
   mounted() {
     const requestList = new Promise((successCallback, failureCallback)  => {
-      this.loadCollabList();
+        this.requestEvent();
       if (this.collabList != null){
         successCallback()
       }else {

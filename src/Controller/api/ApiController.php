@@ -36,9 +36,19 @@ class ApiController extends AbstractController
     #[Route('/api/collab_list', name: 'api_collab_list')]
     public function collabList(UserRepository $userRepository): Response
     {
-        $users = $userRepository->findBy(['is_collab' => true]);
+        $collab = $userRepository->findBy(['is_collab' => true]);
+        $candidate = $userRepository->findByRole('ROLE_USER');
         return $this->json(
-            $users, 200, [], ['groups' => 'collab_list'],
+            $collab, 200, [], ['groups' => 'collab_list'],
+            // $candidate, 200, [], ['groups' => 'collab_list'],
         );
     }
+    // #[Route('/api/candidate_list', name: 'api_candidate_list')]
+    // public function candidateList(UserRepository $userRepository): Response
+    // {
+    //     $users = $userRepository->findByRole('ROLE_USER');
+    //     return $this->json(
+    //         $users, 200, [], ['groups' => 'collab_list'],
+    //     );
+    // }
 }
