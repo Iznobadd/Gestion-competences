@@ -7,6 +7,7 @@
   :isCollab="isCollab"
   @clickProfile="toggleProfile()"
   @clickList="toggleList()"
+  @search="search($event)"
   />
   <profile
   :firstName="firstName"
@@ -22,6 +23,7 @@
   <collablist
   v-if='showList'
   @giveId="takeId($event)"
+  :searchData="searchData"
   />
 </template>
 
@@ -53,6 +55,7 @@ export default {
       showProfile: true,
       showList: false,
       id: null,
+      searchData: '',
     }
   },
   methods:{
@@ -85,6 +88,10 @@ export default {
     takeId(id){
       this.id=id
       // console.log(id)
+    },
+    search(search){
+      this.searchData=search
+      console.log(this.searchData)
     }
   },
   watch: {
