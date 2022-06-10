@@ -27,6 +27,9 @@
       </tr>
     </tbody>
   </table>
+  <a href="/candidate_list">
+    <button class="btn btn-primary">List of candidate</button>
+  </a>
 
 <!-- Modal -->
 <div class="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -99,13 +102,13 @@ export default {
         // console.log(this.collabList[0].lastName)
       })      
     },
-    loadCandidateList(){
-      axios.get("/api/candidate_list").then(response => {
-        let data = response.data;
-        console.log(data)
-        this.candidateList = data;
-      })      
-    },
+    // loadCandidateList(){
+    //   axios.get("/api/candidate_list").then(response => {
+    //     let data = response.data;
+    //     console.log(data)
+    //     this.candidateList = data;
+    //   })      
+    // },
     // mergeList(){
     //   this.mergedList = [...this.collabList, ...this.candidateList];
     //   console.log(this.mergedList);
