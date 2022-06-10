@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Skill{% endblock %}
+
+{% block body %}
+    <h1>Update Skill</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.love) }}
+    {{ form_row(form.stars) }}
+    <button type="submit" class="btn btn-primary">Update Skill</button>
+    {{ form_end(form) }}
+{% endblock %}

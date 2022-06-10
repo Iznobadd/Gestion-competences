@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your profile{% endblock %}
+
+{% block body %}
+    <div class="container text-center border p-4 border-dark border-top-0 rounded-bottom">
+    {# <h1>My profil</h1> #}
+    <h1>{% if user.isAdmin %}Administrator{% elseif user.isCollab %}Collaborator{% else %}SalesMan{% endif %}</h1>
+    <p><i class="fa-solid fa-user"></i> {{ user.firstName }} {{ user.lastName }}</p>
+    <p><i class="fa-solid fa-envelope"></i> mail : {{ user.email }}</p>
+    {% if user.status %}
+        <i class="fa-solid fa-signal"></i> Is available : Yes
+    {% else %}
+        <i class="fa-solid fa-signal-fair"></i> Is available : No
+    {% endif %}
+
+    <h1 class="mt-4"><i class="fa-solid fa-briefcase"></i> My experiences</h1>
+        {% if exps is not empty %}
+            {% for exp in exps %}
+                <h3>{{ exp.jobName }}</h3>
+                <p><em>Started at {{ exp.startedAt | date('m/d/Y') }}</em></p>
+                <p>{{ exp.description }}</p>
+            {% endfor %}
+            <p><a href="{{ path('app_add_exp') }}"><i class="fa-solid fa-square-plus"></i> Add an another experience</a></p>
+        {% else %}
+            No experiences added. <br>
+            <p><a href="{{ path('app_add_exp') }}"><i class="fa-solid fa-square-plus"></i> Add an experience</a></p>
+        {% endif %}
+
+    <h1 class="mt-5"><i class="fa-solid fa-fill-drip"></i> My skills</h1>
+        {% if user.skills is not empty %}
+            <ul>
+                {% for skill in user.skills %}
+                    <li>{{ skill.name }}</li>
+                    <p><a href="{{ path('app_update_skill', {id: skill.id}) }}"><i class="fa-solid fa-pen-to-square"></i>Update skill</a></p>
+                {% endfor %}
+            </ul>
+            <p><a href="{{ path('app_add_skill') }}"><i class="fa-solid fa-square-plus"></i> Add an another skill</a></p>
+        {% else %}
+            No skills added
+            <p><a href="{{ path('app_add_skill') }}"><i class="fa-solid fa-square-plus"></i> Add a skill</a></p>
+        {% endif %}
+
+    <h1 class="mt-5"><i class="fa-solid fa-house-laptop"></i> My missions</h1>
+    {% if user.mission is not empty %}
+        <ul>
+            {% for missions in user.mission %}
+                <li>{{ missions.jobName }}</li>
+            {% endfor %}
+        </ul>
+        <p><a href="{{ path('app_add_mission') }}"><i class="fa-solid fa-square-plus"></i> Add an another mission</a></p>
+    {% else %}
+        No mission added
+        <p><a href="{{ path('app_add_mission') }}"><i class="fa-solid fa-square-plus"></i> Add a mission</a></p>
+    {% endif %}
+    <a class="" href="/">
+        <button class="btn btn-primary mt-3">Back To Profile</button>
+    </a>
+    </div>
+{% endblock %}

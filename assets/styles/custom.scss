@@ -1,0 +1,16 @@
+$primary: #F66B0E;
+$secondary: #205375;
+$success: #112B3C;
+$info: red;
+$light: #EFEFEF;
+
+#form_stars > input
+{
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+#form_stars > label
+{
+  cursor: pointer;
+}

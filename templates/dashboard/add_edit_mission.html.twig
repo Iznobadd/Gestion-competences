@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Mission{% endblock %}
+
+{% block body %}
+    <h1>Add new Mission</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.jobName) }}
+    {{ form_row(form.startAt) }}
+    {{ form_row(form.endAt) }}
+    {{ form_row(form.notEnd) }}
+    {{ form_row(form.description) }}
+
+    <button type="submit" class="btn btn-primary">Add Mission</button>
+    {{ form_end(form) }}
+{% endblock %}
