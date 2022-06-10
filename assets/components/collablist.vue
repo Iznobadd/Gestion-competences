@@ -11,8 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="user in filteredData" :key='user.email'>
-        <th scope="row">{{ user.id }}</th>
+      <tr v-for="(user, key) in filteredData" :key='key'>
+        <th scope="row">{{ incrementIndex(key) }}</th>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.email }}</td>
@@ -27,6 +27,9 @@
       </tr>
     </tbody>
   </table>
+  <a href="/candidate_list">
+    <button class="btn btn-primary">List of candidate</button>
+  </a>
 
 <!-- Modal -->
 <div class="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -81,6 +84,8 @@ export default {
   data () {
       return {
         collabList: [],
+        candidateList: [],
+        mergedList: [],
         selectedItemId: null,
         selectedData: [],
         selectedDataSkills: [],
@@ -96,6 +101,23 @@ export default {
         // console.log(this.collabList);
         // console.log(this.collabList[0].lastName)
       })      
+    },
+    // loadCandidateList(){
+    //   axios.get("/api/candidate_list").then(response => {
+    //     let data = response.data;
+    //     console.log(data)
+    //     this.candidateList = data;
+    //   })      
+    // },
+    // mergeList(){
+    //   this.mergedList = [...this.collabList, ...this.candidateList];
+    //   console.log(this.mergedList);
+    // },
+    requestEvent(){
+      this.loadCollabList();
+      // this.loadCandidateList();
+      // this.mergeList();
+      // console.log(this.candidateList);
     },
     emitId(target){
       this.selectedItemId=target
@@ -113,7 +135,10 @@ export default {
           this.selectedDataMission=element.mission
         }
       });
-    }
+    },
+    incrementIndex(key){
+      return key + 1;
+    },
   },
   computed: {
     filteredData(){
@@ -122,7 +147,7 @@ export default {
   },
   mounted() {
     const requestList = new Promise((successCallback, failureCallback)  => {
-      this.loadCollabList();
+        this.requestEvent();
       if (this.collabList != null){
         successCallback()
       }else {
