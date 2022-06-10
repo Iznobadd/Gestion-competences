@@ -11,8 +11,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="user in filteredData" :key='user.email'>
-        <th scope="row">{{ user.id }}</th>
+      <tr v-for="(user, key) in filteredData" :key='key'>
+        <th scope="row">{{ incrementIndex(key) }}</th>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.email }}</td>
@@ -132,7 +132,10 @@ export default {
           this.selectedDataMission=element.mission
         }
       });
-    }
+    },
+    incrementIndex(key){
+      return key + 1;
+    },
   },
   computed: {
     filteredData(){
